@@ -9,4 +9,11 @@ public class ContaCorrente extends Conta {
     public ContaCorrente() {
         super();
     }
+
+    @Override
+    public String toString() {
+        return "ContaCorrente{" +
+                "saldo=" + saldo +
+                '}';
+    }
 }
