@@ -10,11 +10,12 @@ import java.util.List;
 public class BancoController {
     public static void main(String[] args) {
 
-        ContaPoupanca contaPoupanca1 = new ContaPoupanca(2500.50);
+        // a)
+        ContaPoupanca contaPoupanca1 = new ContaPoupanca(2500);
         ContaPoupanca contaPoupanca2 = new ContaPoupanca(100);
         ContaPoupanca contaPoupanca3 = new ContaPoupanca();
 
-        ContaCorrente contaCorrente1 = new ContaCorrente(10500.50);
+        ContaCorrente contaCorrente1 = new ContaCorrente(10500);
         ContaCorrente contaCorrente2 = new ContaCorrente(100);
         ContaCorrente contaCorrente3 = new ContaCorrente();
 
@@ -22,7 +23,7 @@ public class BancoController {
         Associado associado2 = new Associado("Lucas");
         Associado associado3 = new Associado("Pedro");
 
-        // a)
+
 //        System.out.println(contaPoupanca1);
 //        System.out.println(contaCorrente1);
 //        System.out.println(associado1);
@@ -44,7 +45,24 @@ public class BancoController {
         associadosLista.add(associado2);
         associadosLista.add(associado3);
 
-        System.out.println(contasPoupancaLista);
+        // System.out.println(contasPoupancaLista);
+        // System.out.println(associadosLista);
+
+        // c)
+        contaPoupanca1.deposita(1000.00);
+        // System.out.println("Depositado R$ 1000 - " + contaPoupanca1);
+        contaPoupanca1.atualiza(5);
+        // System.out.println("Atualizado com taxa de 5% - " + contaPoupanca1);
+        contaPoupanca1.saca(50.00);
+        // System.out.println("Sacado R$ 50 - " + contaPoupanca1);
+
+        // d)
+        contaCorrente1.deposita(500.00);
+        // System.out.println("Depositado R$ 500 - " + contaCorrente1);
+        contaCorrente1.saca(400.00);
+        // System.out.println("Sacado R$ 400 - " + contaCorrente1);
+
+        // e)
 
     }
 }
