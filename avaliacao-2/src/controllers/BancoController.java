@@ -1,8 +1,6 @@
 package controllers;
 
-import models.Associado;
-import models.ContaCorrente;
-import models.ContaPoupanca;
+import models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +17,8 @@ public class BancoController {
         ContaCorrente contaCorrente3 = new ContaCorrente();
 
         Associado associado1 = new Associado("Joao");
-        Associado associado2 = new Associado("Lucas");
-        Associado associado3 = new Associado("Pedro");
+        Associado associado2 = new Associado("Pedro");
+        Associado associado3 = new Associado("Ana");
 
         // a)
 //        System.out.println(contaPoupanca1);
@@ -28,23 +26,41 @@ public class BancoController {
 //        System.out.println(associado1);
 
         // b)
-        List<ContaPoupanca> contasPoupancaLista = new ArrayList();
-        List<ContaCorrente> contasCorrenteLista = new ArrayList();
+        List<Conta> contasLista = new ArrayList();
         List<Associado> associadosLista = new ArrayList();
 
-        contasPoupancaLista.add(contaPoupanca1);
-        contasPoupancaLista.add(contaPoupanca2);
-        contasPoupancaLista.add(contaPoupanca3);
-
-        contasCorrenteLista.add(contaCorrente1);
-        contasCorrenteLista.add(contaCorrente2);
-        contasCorrenteLista.add(contaCorrente3);
+        contasLista.add(contaPoupanca1);
+        contasLista.add(contaPoupanca2);
+        contasLista.add(contaPoupanca3);
+        contasLista.add(contaCorrente1);
+        contasLista.add(contaCorrente2);
+        contasLista.add(contaCorrente3);
 
         associadosLista.add(associado1);
         associadosLista.add(associado2);
         associadosLista.add(associado3);
 
-        System.out.println(contasPoupancaLista);
+//        System.out.println(contasLista);
+//        System.out.println(associadosLista);
 
+        // c)
+        contaPoupanca1.deposita(1000.0);
+        contaPoupanca1.atualiza(5);
+        contaPoupanca1.saca(50.0);
+
+        // d)
+        contaCorrente1.deposita(500);
+        contaCorrente1.saca(400.0);
+
+        // e)
+        associado1.lucros(100, 250.0);
+        associado2.lucros(150, 250.0);
+        associado3.lucros(40, 250.0);
+        contaCorrente1.lucros(310, 250.0);
+        contaCorrente2.lucros(20, 250.0);
+        contaCorrente3.lucros(80, 250.0);
+
+        System.out.println(contasLista);
+        System.out.println(associadosLista);
     }
 }

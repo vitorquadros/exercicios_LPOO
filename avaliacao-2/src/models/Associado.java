@@ -2,14 +2,15 @@ package models;
 
 public class Associado implements AssociadoVip {
     private final String nome;
+    private double cotas;
 
     public Associado(String nome) {
         this.nome = nome;
     }
 
     @Override
-    public double lucros(int qtdCotas, double valorCota) {
-        return 0;
+    public void lucros(int qtdCotas, double valorCota) {
+        this.cotas = qtdCotas;
     }
 
     public String getNome() {
