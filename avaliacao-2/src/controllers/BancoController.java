@@ -3,7 +3,9 @@ package controllers;
 import models.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BancoController {
     public static void main(String[] args) {
@@ -21,13 +23,13 @@ public class BancoController {
         Associado associado3 = new Associado("Ana");
 
         // a)
-//        System.out.println(contaPoupanca1);
-//        System.out.println(contaCorrente1);
-//        System.out.println(associado1);
+        System.out.println("Conta poupança 1: " + contaPoupanca1);
+        System.out.println("Conta corrente 1: " + contaCorrente1);
+        System.out.println("Associado 1: " + associado1);
 
         // b)
-        List<Conta> contasLista = new ArrayList();
-        List<Associado> associadosLista = new ArrayList();
+        List<Conta> contasLista = new ArrayList<>();
+        List<Associado> associadosLista = new ArrayList<>();
 
         contasLista.add(contaPoupanca1);
         contasLista.add(contaPoupanca2);
@@ -40,8 +42,8 @@ public class BancoController {
         associadosLista.add(associado2);
         associadosLista.add(associado3);
 
-//        System.out.println(contasLista);
-//        System.out.println(associadosLista);
+        System.out.println("Lista de contas: " + contasLista);
+        System.out.println("Lista de associados: " + associadosLista);
 
         // c)
         contaPoupanca1.deposita(1000.0);
@@ -60,7 +62,50 @@ public class BancoController {
         contaCorrente2.lucros(20, 250.0);
         contaCorrente3.lucros(80, 250.0);
 
-        System.out.println(contasLista);
-        System.out.println(associadosLista);
+         System.out.println("Lista de contas com os valores das cotas dos associados VIP: " + contasLista);
+         System.out.println("Lista de associados com o numero de cotas: " + associadosLista);
+
+        // f)
+        associadosLista.sort(Comparator.comparing(Associado::getCotas).reversed()); // decrescente
+         System.out.println("Associados em ordem de cotas decrescente: " + associadosLista);
+
+         System.out.println("Associado com maior numero de cotas: " + associadosLista.get(0));
+
+        // g)
+        contasLista.sort(Comparator.comparing(Conta::getSaldo).reversed()); // decrescente
+        System.out.println("Contas com saldo em ordem decrescente: " + contasLista);
+
+        List<Conta> associadosVipContas = new ArrayList<>();
+        List<Conta> contasNormal = new ArrayList<>();
+
+        contasLista.forEach(conta -> { // associados vip que tenham conta
+            if (conta instanceof AssociadoVip) {
+                associadosVipContas.add(conta);
+            } else contasNormal.add(conta);
+        });
+
+        System.out.println("Associados VIP que tem conta: " + associadosVipContas);
+
+        double saldoCorrente = 0;
+        double saldoPoupanca = 0;
+
+        for(int i=0; i < contasLista.size(); i++) {
+            Conta conta = contasLista.get(i);
+
+            if (conta instanceof ContaCorrente) {
+                saldoCorrente += conta.getSaldo();
+            } else {
+                saldoPoupanca += conta.getSaldo();
+            }
+        }
+
+        // System.out.println(saldoCorrente);
+        // System.out.println(saldoPoupanca);
+
+        if (saldoCorrente > saldoPoupanca) {
+            System.out.println("Lista com maior saldo: " + associadosVipContas); // lista de contas com maior saldo
+        } else {
+            System.out.println("Lista com maior saldo: " + contasNormal);
+        }
     }
 }

@@ -10,7 +10,11 @@ public class Associado implements AssociadoVip {
 
     @Override
     public void lucros(int qtdCotas, double valorCota) {
-        this.cotas = qtdCotas;
+        this.cotas += qtdCotas;
+    }
+
+    public double getCotas() {
+        return cotas;
     }
 
     public String getNome() {
@@ -21,6 +25,7 @@ public class Associado implements AssociadoVip {
     public String toString() {
         return "Associado{" +
                 "nome='" + nome + '\'' +
+                ", cotas=" + cotas +
                 '}';
     }
 }
