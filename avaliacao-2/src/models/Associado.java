@@ -2,14 +2,19 @@ package models;
 
 public class Associado implements AssociadoVip {
     private final String nome;
+    private double cotas;
 
     public Associado(String nome) {
         this.nome = nome;
     }
 
     @Override
-    public double lucros(int qtdCotas, double valorCota) {
-        return 0;
+    public void lucros(int qtdCotas, double valorCota) {
+        this.cotas += qtdCotas;
+    }
+
+    public double getCotas() {
+        return cotas;
     }
 
     public String getNome() {
@@ -20,6 +25,7 @@ public class Associado implements AssociadoVip {
     public String toString() {
         return "Associado{" +
                 "nome='" + nome + '\'' +
+                ", cotas=" + cotas +
                 '}';
     }
 }

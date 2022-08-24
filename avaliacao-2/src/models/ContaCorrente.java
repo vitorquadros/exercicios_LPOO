@@ -11,8 +11,8 @@ public class ContaCorrente extends Conta implements AssociadoVip {
     }
 
     @Override
-    public double lucros(int qtdCotas, double valorCota) {
-        return 0;
+    public void lucros(int qtdCotas, double valorCota) {
+        this.saldo += qtdCotas * valorCota;
     }
 
     @Override
@@ -21,4 +21,5 @@ public class ContaCorrente extends Conta implements AssociadoVip {
                 "saldo=" + saldo +
                 '}';
     }
+
 }
