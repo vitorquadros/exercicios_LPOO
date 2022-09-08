@@ -1,5 +1,7 @@
 package Models;
 
+import Exceptions.EstoqueInsuficienteException;
+
 import java.util.List;
 
 public class Item {
@@ -9,7 +11,8 @@ public class Item {
 
     Produto produto;
 
-    public Item(Integer codItem, Double desconto, Integer quantidade, Produto produto) {
+    public Item(Integer codItem, Double desconto, Integer quantidade, Produto produto) throws EstoqueInsuficienteException {
+        if (quantidade > produto.getQuantidade()) throw new EstoqueInsuficienteException();
         this.codItem = codItem;
         this.desconto = desconto;
         this.quantidade = quantidade;
