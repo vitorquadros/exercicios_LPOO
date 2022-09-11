@@ -9,17 +9,6 @@ CREATE TABLE usuarios
 
 CREATE TABLE corridas
 (
-    CREATE TABLE usuarios
-        (
-        id INT NOT NULL AUTO_INCREMENT,
-        nome VARCHAR (255) NOT NULL,
-        email VARCHAR (255) NOT NULL,
-        telefone VARCHAR (255) NOT NULL,
-        PRIMARY KEY (id)
-        );
-
-CREATE TABLE corridas
-(
     id                 INT           NOT NULL AUTO_INCREMENT,
     tipo_pagamento     VARCHAR(255)  NOT NULL,
     detalhes_pagamento VARCHAR(255)  NOT NULL,
@@ -46,43 +35,6 @@ CREATE TABLE veiculos
     tipo           VARCHAR(255) NOT NULL,
     placa          VARCHAR(255) NOT NULL,
     ano_fabricacao VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
-);
-
-ALTER TABLE corridas
-    ADD FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
-    ADD FOREIGN KEY (motorista_id) REFERENCES motoristas (id);
-
-ALTER TABLE motoristas
-    ADD FOREIGN KEY (veiculo_id) REFERENCES veiculos (id);
-id
-INT           NOT NULL AUTO_INCREMENT,
-    tipo_pagamento    VARCHAR(255)  NOT NULL,
-    detalhesPagamento VARCHAR(255)  NOT NULL,
-    dataInicio        DATE          NOT NULL,
-    preco             DOUBLE(10, 2) NOT NULL,
-    attribute         INT           NOT NULL,
-    usuario_id        INT NOT NULL,
-    motorista_id      INT NOT NULL,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE motoristas
-(
-    id         INT          NOT NULL AUTO_INCREMENT,
-    nome       VARCHAR(255) NOT NULL,
-    email      VARCHAR(255) NOT NULL,
-    telefone   VARCHAR(255) NOT NULL,
-    veiculo_id INT          NOT NULL,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE veiculos
-(
-    id             INT          NOT NULL AUTO_INCREMENT,
-    tipo           VARCHAR(255) NOT NULL,
-    placa          VARCHAR(255) NOT NULL,
-    ano_fabricacao DATE         NOT NULL,
     PRIMARY KEY (id)
 );
 
