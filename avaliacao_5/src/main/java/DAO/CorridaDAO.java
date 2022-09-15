@@ -1,6 +1,8 @@
 package DAO;
 
 import Model.Corrida;
+import Model.Motorista;
+import Model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,8 +24,19 @@ public class CorridaDAO extends MainDAO {
         ) {
             List<Corrida> corridas = new ArrayList<>();
 
+            Integer i = 0;
+
             while (resultSet.next()) {
-                corridas.add(resultSetToCorrida(resultSet));
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corridas.add(corridaResult);
+
+                Usuario usuario = UsuarioDAO.buscarUsuarioPorId(corridaResult.getUsuarioId());
+                Motorista motorista = MotoristaDAO.buscarMotoristaPorId(corridaResult.getMotoristaId());
+
+                corridas.get(i).setUsuario(usuario);
+                corridas.get(i).setMotorista(motorista);
+
+                i++;
             }
 
             return corridas;
@@ -46,7 +59,14 @@ public class CorridaDAO extends MainDAO {
             Corrida corrida = null;
 
             if (resultSet.next()) {
-                corrida = resultSetToCorrida(resultSet);
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corrida = corridaResult;
+
+                Usuario usuario = UsuarioDAO.buscarUsuarioPorId(corridaResult.getUsuarioId());
+                Motorista motorista = MotoristaDAO.buscarMotoristaPorId(corridaResult.getMotoristaId());
+
+                corrida.setUsuario(usuario);
+                corrida.setMotorista(motorista);
             }
 
             resultSet.close();
@@ -69,9 +89,21 @@ public class CorridaDAO extends MainDAO {
             ResultSet resultSet = pstmt.executeQuery();
             List<Corrida> corridas = new ArrayList<>();
 
+            Integer i = 0;
+
             while (resultSet.next()) {
-                corridas.add(resultSetToCorrida(resultSet));
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corridas.add(corridaResult);
+
+                Usuario usuario = UsuarioDAO.buscarUsuarioPorId(corridaResult.getUsuarioId());
+                Motorista motorista = MotoristaDAO.buscarMotoristaPorId(corridaResult.getMotoristaId());
+
+                corridas.get(i).setUsuario(usuario);
+                corridas.get(i).setMotorista(motorista);
+
+                i++;
             }
+
             return corridas;
         } catch (SQLException e) {
             e.printStackTrace();

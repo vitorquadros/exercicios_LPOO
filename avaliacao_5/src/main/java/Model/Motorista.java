@@ -2,6 +2,7 @@ package Model;
 
 public class Motorista extends Usuario {
     private Integer veiculoId;
+    private Veiculo veiculo;
 
     public Motorista() {
         super();
@@ -15,6 +16,14 @@ public class Motorista extends Usuario {
         this.veiculoId = veiculoId;
     }
 
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -22,7 +31,7 @@ public class Motorista extends Usuario {
                 ", nome='" + getNome() + '\'' +
                 ", email='" + getEmail() + '\'' +
                 ", telefone='" + getTelefone() + '\'' +
-                ", veiculoId=" + getVeiculoId() +
+                ", veiculo=" + getVeiculo() +
                 '}';
     }
 }

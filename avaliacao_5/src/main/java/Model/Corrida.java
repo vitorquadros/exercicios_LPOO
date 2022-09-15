@@ -3,7 +3,6 @@ package Model;
 import java.util.Date;
 
 public class Corrida {
-
     private Integer id;
     private String tipoPagamento;
     private String detalhesPagamento;
@@ -12,6 +11,9 @@ public class Corrida {
 
     private Integer usuarioId;
     private Integer motoristaId;
+
+    private Usuario usuario;
+    private Motorista motorista;
 
     public Corrida() {
     }
@@ -72,16 +74,32 @@ public class Corrida {
         this.motoristaId = motoristaId;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Motorista getMotorista() {
+        return motorista;
+    }
+
+    public void setMotorista(Motorista motorista) {
+        this.motorista = motorista;
+    }
+
     @Override
     public String toString() {
         return "Corrida{" +
                 "id=" + id +
                 ", tipoPagamento='" + tipoPagamento + '\'' +
                 ", detalhesPagamento='" + detalhesPagamento + '\'' +
-                ", dataInicio=" + dataInicio +
+                ", dataInicio='" + dataInicio + '\'' +
                 ", preco=" + preco +
-                ", usuarioId=" + usuarioId +
-                ", motoristaId=" + motoristaId +
+                ", usuario=" + usuario +
+                ", motorista=" + motorista +
                 '}';
     }
 }

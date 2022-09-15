@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Motorista;
+import Model.Veiculo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,9 +22,14 @@ public class MotoristaDAO extends MainDAO {
                 ResultSet resultSet = pstmt.executeQuery();
         ) {
             List<Motorista> motoristas = new ArrayList<>();
+            Integer i = 0;
 
             while (resultSet.next()) {
-                motoristas.add(resultSetToMotorista(resultSet));
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motoristas.add(motoristaResult);
+                Veiculo veiculo = VeiculoDAO.buscarVeiculoPorId(motoristaResult.getVeiculoId());
+                motoristas.get(i).setVeiculo(veiculo);
+                i++;
             }
 
             return motoristas;
@@ -46,7 +52,10 @@ public class MotoristaDAO extends MainDAO {
             Motorista motorista = null;
 
             if (resultSet.next()) {
-                motorista = resultSetToMotorista(resultSet);
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motorista = motoristaResult;
+                Veiculo veiculo = VeiculoDAO.buscarVeiculoPorId(motoristaResult.getVeiculoId());
+                motorista.setVeiculo(veiculo);
             }
 
             resultSet.close();
@@ -69,9 +78,16 @@ public class MotoristaDAO extends MainDAO {
             ResultSet resultSet = pstmt.executeQuery();
             List<Motorista> motoristas = new ArrayList<>();
 
+            Integer i = 0;
+
             while (resultSet.next()) {
-                motoristas.add(resultSetToMotorista(resultSet));
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motoristas.add(motoristaResult);
+                Veiculo veiculo = VeiculoDAO.buscarVeiculoPorId(motoristaResult.getVeiculoId());
+                motoristas.get(i).setVeiculo(veiculo);
+                i++;
             }
+
             return motoristas;
         } catch (SQLException e) {
             e.printStackTrace();
