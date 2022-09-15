@@ -1,3 +1,5 @@
+CREATE DATABASE uber;
+
 CREATE TABLE usuarios
 (
     id       INT          NOT NULL AUTO_INCREMENT,
