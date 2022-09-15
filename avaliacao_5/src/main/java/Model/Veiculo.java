@@ -6,6 +6,8 @@ public class Veiculo {
     private String placa;
     private String anoFabricacao;
 
+    private Motorista motorista;
+
     public Veiculo() {
     }
 

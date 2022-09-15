@@ -25,8 +25,14 @@ public class MotoristaController {
                             "\n5. Listar motorista(s) pelo nome" +
                             "\n6. Deletar um motorista\n" +
                             "\n0. Voltar ao menu\n\n> ");
-            escolha = input.nextInt();
-            input.nextLine();
+
+            if (input.hasNextInt()) {
+                escolha = input.nextInt();
+                input.nextLine();
+            } else {
+                escolha = -1;
+                input.nextLine();
+            }
 
             switch (escolha) {
                 case 1:
@@ -56,95 +62,133 @@ public class MotoristaController {
 
     // 1. Cadastrar novo motorista
     private static void inserir() {
-        Motorista Motorista = new Motorista();
+        Motorista motorista = new Motorista();
         System.out.println("\n++++++ Cadastro de novo Motorista ++++++");
         System.out.print("Digite o nome do motorista: ");
-        Motorista.setNome(input.nextLine());
+        motorista.setNome(input.nextLine());
         System.out.print("\nDigite o email do motorista: ");
-        Motorista.setEmail(input.nextLine());
+        motorista.setEmail(input.nextLine());
         System.out.print("\nDigite o telefone do motorista: ");
-        Motorista.setTelefone(input.nextLine());
+        motorista.setTelefone(input.nextLine());
         System.out.print("\nDigite o código do veículo do motorista: ");
-        Integer veiculoId = input.nextInt();
 
-        if (VeiculoDAO.buscarVeiculoPorId(veiculoId) instanceof Veiculo) {
-            Motorista.setVeiculoId(veiculoId);
-        } else {
-            System.out.println("Código de veículo não encontrado.");
-            return;
-        }
+        if (input.hasNextInt()) {
+            Veiculo veiculo = VeiculoDAO.buscarVeiculoPorId(input.nextInt());
 
-        if (MotoristaDAO.criarMotorista(Motorista)) {
-            System.out.println("\nMotorista salvo com sucesso.");
+            if (veiculo instanceof Veiculo) {
+                motorista.setVeiculo(veiculo);
+            } else {
+                System.out.println("Código de veículo não encontrado.");
+            }
+
+            if (MotoristaDAO.criarMotorista(motorista)) {
+                System.out.println("\nMotorista salvo com sucesso.");
+            } else {
+                System.out.println("\nOcorreu um erro.");
+            }
         } else {
-            System.out.println("\nOcorreu um erro.");
+            System.out.println("Codigo invalido.");
+            input.nextLine();
         }
     }
 
     // 2. Atualizar motorista já existente
     private static void atualizar() {
         System.out.println("\n++++++ Atualizar dados do motorista ++++++");
-        Motorista Motorista = null;
+        Motorista motorista = null;
         int escolha = 0;
 
         do {
             System.out.print("\nEscolha o motorista (código) para atualizar os dados (0 para sair): ");
-            int codigo = input.nextInt();
+
+            int codigo;
+            if (input.hasNextInt()) {
+                codigo = input.nextInt();
+            } else {
+                codigo = 0;
+            }
             input.nextLine();
 
             if (codigo == 0) {
                 escolha = 0;
             } else {
-                Motorista = MotoristaDAO.buscarMotoristaPorId(codigo);
+                motorista = MotoristaDAO.buscarMotoristaPorId(codigo);
 
-                if (Motorista == null) {
+                if (motorista == null) {
                     System.out.println("Código inválido.");
                 } else {
-                    System.out.println("Nome: " + Motorista.getNome());
+                    System.out.println("Nome: " + motorista.getNome());
                     System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
 
-                    if (input.nextInt() == 0) {
-                        input.nextLine();
-                        System.out.println("Digite o novo nome do motorista: ");
-                        Motorista.setNome(input.nextLine());
-                    }
-
-                    System.out.println("Email: " + Motorista.getEmail());
-                    System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
-
-                    if (input.nextInt() == 0) {
-                        input.nextLine();
-                        System.out.print("Digite o novo email do motorista: ");
-                        Motorista.setEmail(input.next());
-                    }
-
-                    System.out.println("Telefone: " + Motorista.getTelefone());
-                    System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
-
-                    if (input.nextInt() == 0) {
-                        input.nextLine();
-                        System.out.print("Digite o novo telefone do motorista: ");
-                        Motorista.setTelefone(input.next());
-                    }
-
-                    System.out.println("Veículo: " + Motorista.getVeiculoId());
-                    System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
-
-                    if (input.nextInt() == 0) {
-                        input.nextLine();
-                        System.out.print("Digite o novo código de veículo do motorista: ");
-                        Integer veiculoId = input.nextInt();
-
-                        if (VeiculoDAO.buscarVeiculoPorId(veiculoId) instanceof Veiculo) {
-                            Motorista.setVeiculoId(veiculoId);
-                        } else {
-                            System.out.println("Código de veículo não encontrado.");
-                            return;
+                    if (input.hasNextInt()) {
+                        if (input.nextInt() == 0) {
+                            input.nextLine();
+                            System.out.println("Digite o novo nome do motorista: ");
+                            motorista.setNome(input.nextLine());
                         }
+                    } else {
+                        System.out.println("Codigo invalido");
+                        return;
                     }
 
-                    if (MotoristaDAO.atualizarMotorista(Motorista)) {
-                        System.out.println("Novos dados salvos: " + Motorista);
+                    System.out.println("Email: " + motorista.getEmail());
+                    System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
+
+                    if (input.hasNextInt()) {
+                        if (input.nextInt() == 0) {
+                            input.nextLine();
+                            System.out.print("Digite o novo email do motorista: ");
+                            motorista.setEmail(input.next());
+                        }
+                    } else {
+                        System.out.println("Codigo invalido");
+                        return;
+                    }
+
+                    System.out.println("Telefone: " + motorista.getTelefone());
+                    System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
+
+                    if (input.hasNextInt()) {
+                        if (input.nextInt() == 0) {
+                            input.nextLine();
+                            System.out.print("Digite o novo telefone do motorista: ");
+                            motorista.setTelefone(input.next());
+                        }
+                    } else {
+                        System.out.println("Codigo invalido");
+                        return;
+                    }
+
+                    System.out.println("Veículo: " + motorista.getVeiculo().getId());
+                    System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
+
+                    if (input.hasNextInt()) {
+                        if (input.nextInt() == 0) {
+                            input.nextLine();
+                            System.out.print("Digite o novo código de veículo do motorista: ");
+
+
+                            if (input.hasNextInt()) {
+                                Integer veiculoId = input.nextInt();
+                                if (VeiculoDAO.buscarVeiculoPorId(veiculoId) instanceof Veiculo) {
+                                    motorista.getVeiculo().setId(veiculoId);
+                                } else {
+                                    System.out.println("Código de veículo não encontrado.");
+                                    return;
+                                }
+                            } else {
+                                System.out.println("Codigo invalido.");
+                                return;
+                            }
+
+                        }
+                    } else {
+                        System.out.println("Codigo invalido.");
+                        return;
+                    }
+
+                    if (MotoristaDAO.atualizarMotorista(motorista)) {
+                        System.out.println("Novos dados salvos: " + motorista);
                     } else {
                         System.out.println("Ocorreu um erro.");
                     }

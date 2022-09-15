@@ -1,10 +1,14 @@
 package Model;
 
+import java.util.List;
+
 public class Usuario {
     private Integer id;
     private String nome;
     private String email;
     private String telefone;
+
+    private List<Corrida> corridas;
 
     public Usuario() {
     }
@@ -39,6 +43,14 @@ public class Usuario {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<Corrida> getCorridas() {
+        return corridas;
+    }
+
+    public void setCorridas(List<Corrida> corridas) {
+        this.corridas = corridas;
     }
 
     @Override

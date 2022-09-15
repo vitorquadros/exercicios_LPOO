@@ -24,19 +24,9 @@ public class CorridaDAO extends MainDAO {
         ) {
             List<Corrida> corridas = new ArrayList<>();
 
-            Integer i = 0;
-
             while (resultSet.next()) {
                 Corrida corridaResult = resultSetToCorrida(resultSet);
                 corridas.add(corridaResult);
-
-                Usuario usuario = UsuarioDAO.buscarUsuarioPorId(corridaResult.getUsuarioId());
-                Motorista motorista = MotoristaDAO.buscarMotoristaPorId(corridaResult.getMotoristaId());
-
-                corridas.get(i).setUsuario(usuario);
-                corridas.get(i).setMotorista(motorista);
-
-                i++;
             }
 
             return corridas;
@@ -61,12 +51,6 @@ public class CorridaDAO extends MainDAO {
             if (resultSet.next()) {
                 Corrida corridaResult = resultSetToCorrida(resultSet);
                 corrida = corridaResult;
-
-                Usuario usuario = UsuarioDAO.buscarUsuarioPorId(corridaResult.getUsuarioId());
-                Motorista motorista = MotoristaDAO.buscarMotoristaPorId(corridaResult.getMotoristaId());
-
-                corrida.setUsuario(usuario);
-                corrida.setMotorista(motorista);
             }
 
             resultSet.close();
@@ -89,19 +73,9 @@ public class CorridaDAO extends MainDAO {
             ResultSet resultSet = pstmt.executeQuery();
             List<Corrida> corridas = new ArrayList<>();
 
-            Integer i = 0;
-
             while (resultSet.next()) {
                 Corrida corridaResult = resultSetToCorrida(resultSet);
                 corridas.add(corridaResult);
-
-                Usuario usuario = UsuarioDAO.buscarUsuarioPorId(corridaResult.getUsuarioId());
-                Motorista motorista = MotoristaDAO.buscarMotoristaPorId(corridaResult.getMotoristaId());
-
-                corridas.get(i).setUsuario(usuario);
-                corridas.get(i).setMotorista(motorista);
-
-                i++;
             }
 
             return corridas;
@@ -123,8 +97,8 @@ public class CorridaDAO extends MainDAO {
             pstmt.setString(2, corrida.getDetalhesPagamento());
             pstmt.setString(3, corrida.getDataInicio());
             pstmt.setDouble(4, corrida.getPreco());
-            pstmt.setInt(5, corrida.getUsuarioId());
-            pstmt.setInt(6, corrida.getMotoristaId());
+            pstmt.setInt(5, corrida.getUsuario().getId());
+            pstmt.setInt(6, corrida.getMotorista().getId());
             int count = pstmt.executeUpdate();
             return count > 0;
 
@@ -146,8 +120,8 @@ public class CorridaDAO extends MainDAO {
             pstmt.setString(2, corrida.getDetalhesPagamento());
             pstmt.setString(3, corrida.getDataInicio());
             pstmt.setDouble(4, corrida.getPreco());
-            pstmt.setInt(5, corrida.getUsuarioId());
-            pstmt.setInt(6, corrida.getMotoristaId());
+            pstmt.setInt(5, corrida.getUsuario().getId());
+            pstmt.setInt(6, corrida.getMotorista().getId());
             pstmt.setInt(7, corrida.getId());
             int count = pstmt.executeUpdate();
             return count > 0;
@@ -186,8 +160,8 @@ public class CorridaDAO extends MainDAO {
         corrida.setDetalhesPagamento(resultSet.getString("detalhes_pagamento"));
         corrida.setDataInicio(resultSet.getString("data_inicio"));
         corrida.setPreco(resultSet.getDouble("preco"));
-        corrida.setUsuarioId(resultSet.getInt("usuario_id"));
-        corrida.setMotoristaId(resultSet.getInt("motorista_id"));
+        corrida.setUsuario(UsuarioDAO.buscarUsuarioPorId(resultSet.getInt("usuario_id")));
+        corrida.setMotorista(MotoristaDAO.buscarMotoristaPorId(resultSet.getInt("motorista_id")));
 
         return corrida;
     }

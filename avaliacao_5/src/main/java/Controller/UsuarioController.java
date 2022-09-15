@@ -24,8 +24,14 @@ public class UsuarioController {
                             "\n5. Listar usuário(s) pelo nome" +
                             "\n6. Deletar um usuário\n" +
                             "\n0. Voltar ao menu\n\n> ");
-            escolha = input.nextInt();
-            input.nextLine();
+            if (input.hasNextInt()) {
+                escolha = input.nextInt();
+                input.nextLine();
+            } else {
+                escolha = -1;
+                input.nextLine();
+            }
+
 
             switch (escolha) {
                 case 1:

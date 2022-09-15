@@ -23,8 +23,15 @@ public class VeiculoController {
                             "\n5. Listar veiculo(s) pelo ano de fabricação" +
                             "\n6. Deletar um veiculo\n" +
                             "\n0. Voltar ao menu\n\n> ");
-            escolha = input.nextInt();
-            input.nextLine();
+
+            if (input.hasNextInt()) {
+                escolha = input.nextInt();
+                input.nextLine();
+            } else {
+                escolha = -1;
+                input.nextLine();
+            }
+
 
             switch (escolha) {
                 case 1:

@@ -1,7 +1,11 @@
 package Controller;
 
 import DAO.CorridaDAO;
+import DAO.MotoristaDAO;
+import DAO.UsuarioDAO;
 import Model.Corrida;
+import Model.Motorista;
+import Model.Usuario;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,8 +31,14 @@ public class CorridaController {
                             "\n5. Listar corrida(s) pela data de ínicio" +
                             "\n6. Deletar uma corrida\n" +
                             "\n0. Voltar ao menu\n\n> ");
-            escolha = input.nextInt();
-            input.nextLine();
+            if (input.hasNextInt()) {
+                escolha = input.nextInt();
+                input.nextLine();
+            } else {
+                escolha = -1;
+                input.nextLine();
+            }
+
 
             switch (escolha) {
                 case 1:
@@ -67,9 +77,11 @@ public class CorridaController {
         System.out.print("\nDigite o preço da corrida: ");
         corrida.setPreco(input.nextDouble());
         System.out.print("\nDigite o código do usuário da corrida: ");
-        corrida.setUsuarioId(input.nextInt());
+        Usuario usuario = UsuarioDAO.buscarUsuarioPorId(input.nextInt());
+        corrida.setUsuario(usuario);
         System.out.print("\nDigite o código do motorista da corrida: ");
-        corrida.setMotoristaId(input.nextInt());
+        Motorista motorita = MotoristaDAO.buscarMotoristaPorId(input.nextInt());
+        corrida.setMotorista(motorita);
 
         String pattern = "MM/dd/yyyy HH:mm:ss";
         DateFormat df = new SimpleDateFormat(pattern);
@@ -129,22 +141,24 @@ public class CorridaController {
                         corrida.setPreco(input.nextDouble());
                     }
 
-                    System.out.println("Usuário da corrida: " + corrida.getUsuarioId());
+                    System.out.println("Usuário da corrida: " + corrida.getUsuario().getId());
                     System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
 
                     if (input.nextInt() == 0) {
                         input.nextLine();
                         System.out.print("Digite o novo código do usuário da corrida: ");
-                        corrida.setUsuarioId(input.nextInt());
+                        Usuario usuario = UsuarioDAO.buscarUsuarioPorId(input.nextInt());
+                        corrida.setUsuario(usuario);
                     }
 
-                    System.out.println("Motorista da corrida: " + corrida.getMotoristaId());
+                    System.out.println("Motorista da corrida: " + corrida.getMotorista().getId());
                     System.out.print("Atualizar? (0 - Sim / 1 - Não) ");
 
                     if (input.nextInt() == 0) {
                         input.nextLine();
                         System.out.print("Digite o novo código do motorista da corrida: ");
-                        corrida.setMotoristaId(input.nextInt());
+                        Motorista motorita = MotoristaDAO.buscarMotoristaPorId(input.nextInt());
+                        corrida.setMotorista(motorita);
                     }
 
                     if (CorridaDAO.atualizarCorrida(corrida)) {

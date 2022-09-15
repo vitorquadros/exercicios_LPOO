@@ -41,8 +41,12 @@ CREATE TABLE veiculos
 );
 
 ALTER TABLE corridas
-    ADD FOREIGN KEY (usuario_id) REFERENCES usuarios (id),
-    ADD FOREIGN KEY (motorista_id) REFERENCES motoristas (id);
+    ADD FOREIGN KEY (usuario_id) REFERENCES usuarios (id)
+    ON DELETE CASCADE,
+    ADD FOREIGN KEY (motorista_id) REFERENCES motoristas (id)
+    ON DELETE CASCADE;
 
 ALTER TABLE motoristas
-    ADD FOREIGN KEY (veiculo_id) REFERENCES veiculos (id);
+    ADD FOREIGN KEY (veiculo_id) REFERENCES veiculos (id)
+    ON DELETE SET NULL;
+

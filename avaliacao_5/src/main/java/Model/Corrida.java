@@ -8,10 +8,6 @@ public class Corrida {
     private String detalhesPagamento;
     private String dataInicio;
     private Double preco;
-
-    private Integer usuarioId;
-    private Integer motoristaId;
-
     private Usuario usuario;
     private Motorista motorista;
 
@@ -56,22 +52,6 @@ public class Corrida {
 
     public void setPreco(Double preco) {
         this.preco = preco;
-    }
-
-    public Integer getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Integer usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public Integer getMotoristaId() {
-        return motoristaId;
-    }
-
-    public void setMotoristaId(Integer motoristaId) {
-        this.motoristaId = motoristaId;
     }
 
     public Usuario getUsuario() {
