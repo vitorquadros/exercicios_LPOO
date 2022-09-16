@@ -84,6 +84,30 @@ public class MotoristaDAO extends MainDAO {
         }
     }
 
+    public static Motorista buscarMotoristaPorVeiculo(Integer id) {
+        final String sql = "SELECT * FROM motoristas WHERE veiculo_id = ?";
+
+        try (
+                Connection conn = getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1, id);
+            ResultSet resultSet = pstmt.executeQuery();
+            Motorista motorista = null;
+
+            if (resultSet.next()) {
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motorista = motoristaResult;
+            }
+
+            resultSet.close();
+            return motorista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // Inserir novo usuário no BD
     public static boolean criarMotorista(Motorista motorista) {
         final String sql = "INSERT INTO motoristas (nome, email, telefone, veiculo_id) VALUES (?, ?, ?, ?)";
@@ -154,6 +178,7 @@ public class MotoristaDAO extends MainDAO {
         motorista.setEmail(resultSet.getString("email"));
         motorista.setTelefone(resultSet.getString("telefone"));
         motorista.setVeiculo(VeiculoDAO.buscarVeiculoPorId(resultSet.getInt("veiculo_id")));
+        // motorista.setCorridas(CorridaDAO.buscarCorridasPorMotorista(resultSet.getInt("id")));
 
         return motorista;
     }

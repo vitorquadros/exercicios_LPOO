@@ -147,6 +147,7 @@ public class VeiculoDAO extends MainDAO {
         veiculo.setTipo(resultSet.getString("tipo"));
         veiculo.setPlaca(resultSet.getString("placa"));
         veiculo.setAnoFabricacao(resultSet.getString("ano_fabricacao"));
+        // veiculo.setMotorista(MotoristaDAO.buscarMotoristaPorVeiculo(resultSet.getInt("id")));
 
         return veiculo;
     }

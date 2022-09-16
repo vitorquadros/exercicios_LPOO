@@ -85,6 +85,54 @@ public class CorridaDAO extends MainDAO {
         }
     }
 
+    public static List<Corrida> buscarCorridasPorMotorista(Integer id) {
+        final String sql = "SELECT * FROM corridas WHERE motorista_id = ?";
+
+        try (
+                Connection conn = getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        ) {
+            pstmt.setInt(1, id);
+            ResultSet resultSet = pstmt.executeQuery();
+            List<Corrida> corridas = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corridas.add(corridaResult);
+            }
+
+            return corridas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<Corrida> buscarCorridasPorUsuario(Integer id) {
+        final String sql = "SELECT * FROM corridas WHERE usuario_id = ?";
+
+        try (
+                Connection conn = getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        ) {
+            pstmt.setInt(1, id);
+            ResultSet resultSet = pstmt.executeQuery();
+            List<Corrida> corridas = new ArrayList<>();
+
+            while (resultSet.next()) {
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corridas.add(corridaResult);
+            }
+
+            return corridas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // Inserir uma nova corrida no BD
     public static boolean criarCorrida(Corrida corrida) {
         final String sql = "INSERT INTO corridas (tipo_pagamento, detalhes_pagamento, data_inicio, preco, usuario_id, motorista_id) VALUES (?, ?, ?, ?, ?, ?)";
