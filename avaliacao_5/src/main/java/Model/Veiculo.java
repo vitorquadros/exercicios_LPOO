@@ -43,13 +43,22 @@ public class Veiculo {
         this.anoFabricacao = anoFabricacao;
     }
 
+    public Motorista getMotorista() {
+        return motorista;
+    }
+
+    public void setMotorista(Motorista motorista) {
+        this.motorista = motorista;
+    }
+
     @Override
     public String toString() {
         return "Veiculo{" +
                 "id=" + id +
                 ", tipo='" + tipo + '\'' +
                 ", placa='" + placa + '\'' +
-                ", anoFabricacao=" + anoFabricacao +
+                ", anoFabricacao='" + anoFabricacao + '\'' +
+                ", motorista=" + motorista +
                 '}';
     }
 }

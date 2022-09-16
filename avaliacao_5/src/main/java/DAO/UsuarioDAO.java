@@ -146,6 +146,7 @@ public class UsuarioDAO extends MainDAO {
         usuario.setNome(resultSet.getString("nome"));
         usuario.setEmail(resultSet.getString("email"));
         usuario.setTelefone(resultSet.getString("telefone"));
+        // usuario.setCorridas(CorridaDAO.buscarCorridasPorUsuario(resultSet.getInt("id")));
 
         return usuario;
     }
