@@ -3,15 +3,13 @@ package Model;
 import java.util.Date;
 
 public class Corrida {
-
     private Integer id;
     private String tipoPagamento;
     private String detalhesPagamento;
     private String dataInicio;
     private Double preco;
-
-    private Integer usuarioId;
-    private Integer motoristaId;
+    private Usuario usuario;
+    private Motorista motorista;
 
     public Corrida() {
     }
@@ -56,20 +54,20 @@ public class Corrida {
         this.preco = preco;
     }
 
-    public Integer getUsuarioId() {
-        return usuarioId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(Integer usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Integer getMotoristaId() {
-        return motoristaId;
+    public Motorista getMotorista() {
+        return motorista;
     }
 
-    public void setMotoristaId(Integer motoristaId) {
-        this.motoristaId = motoristaId;
+    public void setMotorista(Motorista motorista) {
+        this.motorista = motorista;
     }
 
     @Override
@@ -78,10 +76,10 @@ public class Corrida {
                 "id=" + id +
                 ", tipoPagamento='" + tipoPagamento + '\'' +
                 ", detalhesPagamento='" + detalhesPagamento + '\'' +
-                ", dataInicio=" + dataInicio +
+                ", dataInicio='" + dataInicio + '\'' +
                 ", preco=" + preco +
-                ", usuarioId=" + usuarioId +
-                ", motoristaId=" + motoristaId +
+                ", usuario=" + usuario +
+                ", motorista=" + motorista +
                 '}';
     }
 }

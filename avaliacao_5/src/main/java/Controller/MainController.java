@@ -16,8 +16,14 @@ public class MainController {
                             "\n3. Manter Veículos" +
                             "\n4. Manter Corridas" +
                             "\n\n0. Finalizar\n\n> ");
-            escolha = input.nextInt();
-            input.nextLine();
+            if (input.hasNextInt()) {
+                escolha = input.nextInt();
+                input.nextLine();
+            } else {
+                escolha = -1;
+                input.nextLine();
+            }
+
             switch (escolha) {
                 case 1:
                     UsuarioController.main(null);

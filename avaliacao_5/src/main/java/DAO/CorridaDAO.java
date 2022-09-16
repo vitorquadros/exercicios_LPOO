@@ -1,6 +1,8 @@
 package DAO;
 
 import Model.Corrida;
+import Model.Motorista;
+import Model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +25,8 @@ public class CorridaDAO extends MainDAO {
             List<Corrida> corridas = new ArrayList<>();
 
             while (resultSet.next()) {
-                corridas.add(resultSetToCorrida(resultSet));
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corridas.add(corridaResult);
             }
 
             return corridas;
@@ -46,7 +49,8 @@ public class CorridaDAO extends MainDAO {
             Corrida corrida = null;
 
             if (resultSet.next()) {
-                corrida = resultSetToCorrida(resultSet);
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corrida = corridaResult;
             }
 
             resultSet.close();
@@ -70,8 +74,10 @@ public class CorridaDAO extends MainDAO {
             List<Corrida> corridas = new ArrayList<>();
 
             while (resultSet.next()) {
-                corridas.add(resultSetToCorrida(resultSet));
+                Corrida corridaResult = resultSetToCorrida(resultSet);
+                corridas.add(corridaResult);
             }
+
             return corridas;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -91,8 +97,8 @@ public class CorridaDAO extends MainDAO {
             pstmt.setString(2, corrida.getDetalhesPagamento());
             pstmt.setString(3, corrida.getDataInicio());
             pstmt.setDouble(4, corrida.getPreco());
-            pstmt.setInt(5, corrida.getUsuarioId());
-            pstmt.setInt(6, corrida.getMotoristaId());
+            pstmt.setInt(5, corrida.getUsuario().getId());
+            pstmt.setInt(6, corrida.getMotorista().getId());
             int count = pstmt.executeUpdate();
             return count > 0;
 
@@ -114,8 +120,8 @@ public class CorridaDAO extends MainDAO {
             pstmt.setString(2, corrida.getDetalhesPagamento());
             pstmt.setString(3, corrida.getDataInicio());
             pstmt.setDouble(4, corrida.getPreco());
-            pstmt.setInt(5, corrida.getUsuarioId());
-            pstmt.setInt(6, corrida.getMotoristaId());
+            pstmt.setInt(5, corrida.getUsuario().getId());
+            pstmt.setInt(6, corrida.getMotorista().getId());
             pstmt.setInt(7, corrida.getId());
             int count = pstmt.executeUpdate();
             return count > 0;
@@ -154,8 +160,8 @@ public class CorridaDAO extends MainDAO {
         corrida.setDetalhesPagamento(resultSet.getString("detalhes_pagamento"));
         corrida.setDataInicio(resultSet.getString("data_inicio"));
         corrida.setPreco(resultSet.getDouble("preco"));
-        corrida.setUsuarioId(resultSet.getInt("usuario_id"));
-        corrida.setMotoristaId(resultSet.getInt("motorista_id"));
+        corrida.setUsuario(UsuarioDAO.buscarUsuarioPorId(resultSet.getInt("usuario_id")));
+        corrida.setMotorista(MotoristaDAO.buscarMotoristaPorId(resultSet.getInt("motorista_id")));
 
         return corrida;
     }

@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Motorista;
+import Model.Veiculo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,8 @@ public class MotoristaDAO extends MainDAO {
             List<Motorista> motoristas = new ArrayList<>();
 
             while (resultSet.next()) {
-                motoristas.add(resultSetToMotorista(resultSet));
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motoristas.add(motoristaResult);
             }
 
             return motoristas;
@@ -46,7 +48,8 @@ public class MotoristaDAO extends MainDAO {
             Motorista motorista = null;
 
             if (resultSet.next()) {
-                motorista = resultSetToMotorista(resultSet);
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motorista = motoristaResult;
             }
 
             resultSet.close();
@@ -70,8 +73,10 @@ public class MotoristaDAO extends MainDAO {
             List<Motorista> motoristas = new ArrayList<>();
 
             while (resultSet.next()) {
-                motoristas.add(resultSetToMotorista(resultSet));
+                Motorista motoristaResult = resultSetToMotorista(resultSet);
+                motoristas.add(motoristaResult);
             }
+
             return motoristas;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,7 +94,7 @@ public class MotoristaDAO extends MainDAO {
             pstmt.setString(1, motorista.getNome());
             pstmt.setString(2, motorista.getEmail());
             pstmt.setString(3, motorista.getTelefone());
-            pstmt.setInt(4, motorista.getVeiculoId());
+            pstmt.setInt(4, motorista.getVeiculo().getId());
             int count = pstmt.executeUpdate();
             return count > 0;
 
@@ -110,7 +115,7 @@ public class MotoristaDAO extends MainDAO {
             pstmt.setString(1, motorista.getNome());
             pstmt.setString(2, motorista.getEmail());
             pstmt.setString(3, motorista.getTelefone());
-            pstmt.setInt(4, motorista.getVeiculoId());
+            pstmt.setInt(4, motorista.getVeiculo().getId());
             pstmt.setInt(5, motorista.getId());
             int count = pstmt.executeUpdate();
             return count > 0;
@@ -148,7 +153,7 @@ public class MotoristaDAO extends MainDAO {
         motorista.setNome(resultSet.getString("nome"));
         motorista.setEmail(resultSet.getString("email"));
         motorista.setTelefone(resultSet.getString("telefone"));
-        motorista.setVeiculoId(resultSet.getInt("veiculo_id"));
+        motorista.setVeiculo(VeiculoDAO.buscarVeiculoPorId(resultSet.getInt("veiculo_id")));
 
         return motorista;
     }
